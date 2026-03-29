@@ -1,0 +1,63 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Inbox</h1>
+    <p class="admin-page-subtitle"><%= messages.filter(m => !m.read).length %> unread message<%= messages.filter(m => !m.read).length !== 1 ? 's' : '' %></p>
+  </div>
+
+  <div class="admin-card">
+    <% if (messages.length === 0) { %>
+      <div class="admin-empty">
+        <p>No messages yet. Messages submitted through the contact form will appear here.</p>
+      </div>
+    <% } else { %>
+      <div class="admin-table-wrap">
+        <table class="admin-table inbox-table">
+          <thead>
+            <tr>
+              <th style="width:30px;"></th>
+              <th>From</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% messages.forEach(msg => { %>
+              <tr class="<%= msg.read ? '' : 'inbox-unread' %>">
+                <td>
+                  <span class="inbox-dot<%= msg.read ? '' : ' inbox-dot--unread' %>" title="<%= msg.read ? 'Read' : 'Unread' %>"></span>
+                </td>
+                <td>
+                  <a href="/admin/inbox/<%= msg.id %>" class="inbox-from">
+                    <strong><%= msg.name %></strong>
+                    <span class="inbox-email"><%= msg.email %></span>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/inbox/<%= msg.id %>" class="inbox-subject">
+                    <%= msg.subject %>
+                    <span class="inbox-preview"><%= msg.message.substring(0, 80) %><%= msg.message.length > 80 ? '...' : '' %></span>
+                  </a>
+                </td>
+                <td class="inbox-date">
+                  <%= new Date(msg.created_at + 'Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                  <span class="inbox-time"><%= new Date(msg.created_at + 'Z').toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) %></span>
+                </td>
+                <td class="actions">
+                  <form action="/admin/inbox/<%= msg.id %>/toggle-read" method="POST" style="display:inline;">
+                    <button type="submit" class="btn-admin btn-admin-secondary btn-admin-sm" title="<%= msg.read ? 'Mark unread' : 'Mark read' %>">
+                      <%= msg.read ? 'Mark Unread' : 'Mark Read' %>
+                    </button>
+                  </form>
+                  <form action="/admin/inbox/<%= msg.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this message?')">
+                    <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>

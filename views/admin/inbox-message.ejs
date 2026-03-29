@@ -1,0 +1,36 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <a href="/admin/inbox" class="btn-admin btn-admin-secondary btn-admin-sm">&larr; Back to Inbox</a>
+  </div>
+
+  <div class="admin-card message-view">
+    <div class="message-header">
+      <h2 class="message-subject"><%= message.subject %></h2>
+      <div class="message-meta">
+        <div class="message-meta-row">
+          <strong>From:</strong>
+          <span><%= message.name %> &lt;<%= message.email %>&gt;</span>
+        </div>
+        <div class="message-meta-row">
+          <strong>Date:</strong>
+          <span><%= new Date(message.created_at + 'Z').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %> at <%= new Date(message.created_at + 'Z').toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="message-body">
+      <p><%= message.message %></p>
+    </div>
+
+    <div class="message-actions">
+      <form action="/admin/inbox/<%= message.id %>/toggle-read" method="POST" style="display:inline;">
+        <button type="submit" class="btn-admin btn-admin-secondary">
+          <%= message.read ? 'Mark as Unread' : 'Mark as Read' %>
+        </button>
+      </form>
+      <form action="/admin/inbox/<%= message.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this message permanently?')">
+        <button type="submit" class="btn-admin btn-admin-danger">Delete Message</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -195,4 +195,53 @@ router.post('/locations/:id/delete', requireAdmin, (req, res) => {
   res.redirect('/admin/locations');
 });
 
+// ===== INBOX (Contact Messages) =====
+router.get('/inbox', requireAdmin, (req, res) => {
+  res.render('layout', {
+    title: 'Inbox - Epic Rides',
+    page: 'admin',
+    body: 'admin/inbox',
+    siteContent: db.getSiteContent(),
+    messages: db.getContactMessages(),
+  });
+});
+
+router.get('/inbox/:id', requireAdmin, (req, res) => {
+  const message = db.getContactMessage(req.params.id);
+  if (!message) {
+    req.session.flash = { type: 'error', message: 'Message not found' };
+    return res.redirect('/admin/inbox');
+  }
+  // Mark as read when opened
+  if (!message.read) {
+    db.markMessageRead(req.params.id);
+    message.read = 1;
+  }
+  res.render('layout', {
+    title: 'Message - Epic Rides',
+    page: 'admin',
+    body: 'admin/inbox-message',
+    siteContent: db.getSiteContent(),
+    message: message,
+  });
+});
+
+router.post('/inbox/:id/toggle-read', requireAdmin, (req, res) => {
+  const message = db.getContactMessage(req.params.id);
+  if (message) {
+    if (message.read) {
+      db.markMessageUnread(req.params.id);
+    } else {
+      db.markMessageRead(req.params.id);
+    }
+  }
+  res.redirect('/admin/inbox');
+});
+
+router.post('/inbox/:id/delete', requireAdmin, (req, res) => {
+  db.deleteContactMessage(req.params.id);
+  req.session.flash = { type: 'success', message: 'Message deleted' };
+  res.redirect('/admin/inbox');
+});
+
 module.exports = router;

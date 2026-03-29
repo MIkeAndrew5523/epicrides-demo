@@ -97,6 +97,7 @@ db.exec(`
     email TEXT NOT NULL,
     subject TEXT NOT NULL,
     message TEXT NOT NULL,
+    read INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `);
@@ -318,6 +319,11 @@ module.exports = {
     return db.prepare('INSERT INTO contact_messages (name, email, subject, message) VALUES (@name, @email, @subject, @message)').run(data);
   },
   getContactMessages: () => db.prepare('SELECT * FROM contact_messages ORDER BY created_at DESC').all(),
+  getContactMessage: (id) => db.prepare('SELECT * FROM contact_messages WHERE id = ?').get(id),
+  markMessageRead: (id) => db.prepare('UPDATE contact_messages SET read = 1 WHERE id = ?').run(id),
+  markMessageUnread: (id) => db.prepare('UPDATE contact_messages SET read = 0 WHERE id = ?').run(id),
+  deleteContactMessage: (id) => db.prepare('DELETE FROM contact_messages WHERE id = ?').run(id),
+  getUnreadMessageCount: () => db.prepare('SELECT COUNT(*) as c FROM contact_messages WHERE read = 0').get().c,
 
   // Admin Auth
   verifyAdmin: (username, password) => {
@@ -335,6 +341,7 @@ module.exports = {
       todayBookings: db.prepare('SELECT COUNT(*) as c FROM bookings WHERE date(created_at) = ?').get(today).c,
       confirmedBookings: db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status = 'confirmed'").get().c,
       cancelledBookings: db.prepare("SELECT COUNT(*) as c FROM bookings WHERE status = 'cancelled'").get().c,
+      unreadMessages: db.prepare('SELECT COUNT(*) as c FROM contact_messages WHERE read = 0').get().c,
     };
   },
 };

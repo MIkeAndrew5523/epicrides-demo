@@ -20,6 +20,10 @@
       <div class="stat-number"><%= stats.cancelledBookings %></div>
       <div class="stat-label">Cancelled</div>
     </div>
+    <div class="stat-card" style="border-left: 4px solid #0693e3;">
+      <div class="stat-number"><%= stats.unreadMessages %></div>
+      <div class="stat-label">Unread Messages</div>
+    </div>
   </div>
 
   <div class="admin-card">
@@ -31,6 +35,7 @@
       <a href="/admin/schedules" class="quick-link">Manage Schedules</a>
       <a href="/admin/content" class="quick-link">Manage Content</a>
       <a href="/admin/locations" class="quick-link">Manage Locations</a>
+      <a href="/admin/inbox" class="quick-link">Inbox (<%= stats.unreadMessages %> unread)</a>
       <a href="/" class="quick-link" target="_blank">View Public Site</a>
     </div>
   </div>

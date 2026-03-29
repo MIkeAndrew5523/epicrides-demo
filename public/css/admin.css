@@ -693,3 +693,131 @@
 .mb-0 { margin-bottom: 0; }
 .mb-1 { margin-bottom: 0.5rem; }
 .mb-2 { margin-bottom: 1rem; }
+
+/* ============================================================
+   INBOX
+   ============================================================ */
+.admin-page-subtitle {
+  color: var(--admin-text-light);
+  margin-top: 4px;
+  font-size: 0.92rem;
+}
+
+.inbox-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.inbox-table tbody tr:hover {
+  background: #f0f4f8;
+}
+
+.inbox-unread {
+  background: #f0f7ff;
+  font-weight: 600;
+}
+
+.inbox-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d0d7de;
+}
+
+.inbox-dot--unread {
+  background: #0693e3;
+}
+
+.inbox-from {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.inbox-from strong {
+  color: var(--admin-text);
+}
+
+.inbox-email {
+  font-size: 0.8rem;
+  color: var(--admin-text-light);
+  font-weight: 400;
+}
+
+.inbox-subject {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--admin-text);
+}
+
+.inbox-preview {
+  font-size: 0.82rem;
+  color: var(--admin-text-light);
+  font-weight: 400;
+}
+
+.inbox-date {
+  white-space: nowrap;
+  font-size: 0.85rem;
+  color: var(--admin-text-light);
+}
+
+.inbox-time {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--admin-text-light);
+}
+
+/* Message detail view */
+.message-view {
+  padding: 32px;
+}
+
+.message-header {
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.message-subject {
+  font-size: 1.4rem;
+  color: var(--admin-primary);
+  margin-bottom: 12px;
+}
+
+.message-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.message-meta-row {
+  font-size: 0.9rem;
+  color: var(--admin-text-light);
+}
+
+.message-meta-row strong {
+  color: var(--admin-text);
+  display: inline-block;
+  width: 50px;
+}
+
+.message-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--admin-text);
+  margin-bottom: 32px;
+  white-space: pre-wrap;
+}
+
+.message-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--admin-border);
+}
