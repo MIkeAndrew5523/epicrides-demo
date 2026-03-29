@@ -56,4 +56,21 @@ router.get('/contact', (req, res) => {
   });
 });
 
+// Contact form submission
+router.post('/api/contact', (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ success: false, error: 'All fields are required.' });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ success: false, error: 'Please enter a valid email address.' });
+    }
+    db.createContactMessage({ name, email, subject, message });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;

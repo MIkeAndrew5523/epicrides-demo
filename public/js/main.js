@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ---- CONTACT FORM CLIENT-SIDE HANDLING ----
+  // ---- CONTACT FORM ----
   var contactFormEl = document.getElementById('contactFormEl');
   var contactSuccess = document.getElementById('contactSuccess');
 
@@ -208,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function () {
     contactFormEl.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Simple validation
       var name = document.getElementById('contactName').value.trim();
       var email = document.getElementById('contactEmail').value.trim();
       var subject = document.getElementById('contactSubject').value.trim();
@@ -224,11 +223,34 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // Simulate success
-      contactFormEl.style.display = 'none';
-      if (contactSuccess) {
-        contactSuccess.style.display = 'block';
-      }
+      var submitBtn = contactFormEl.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, subject: subject, message: message }),
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          contactFormEl.reset();
+          contactFormEl.style.display = 'none';
+          if (contactSuccess) {
+            contactSuccess.style.display = 'block';
+          }
+        } else {
+          alert(data.error || 'Something went wrong. Please try again.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+        }
+      })
+      .catch(function () {
+        alert('Network error. Please check your connection and try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      });
     });
   }
 

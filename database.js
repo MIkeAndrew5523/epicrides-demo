@@ -90,6 +90,15 @@ db.exec(`
     sort_order INTEGER NOT NULL DEFAULT 0,
     active INTEGER NOT NULL DEFAULT 1
   );
+
+  CREATE TABLE IF NOT EXISTS contact_messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
 `);
 
 // ============================================================
@@ -303,6 +312,12 @@ module.exports = {
     return db.prepare('UPDATE faq SET question=@question, answer=@answer, active=@active WHERE id=@id').run({ ...data, id });
   },
   deleteFaq: (id) => db.prepare('DELETE FROM faq WHERE id = ?').run(id),
+
+  // Contact Messages
+  createContactMessage: (data) => {
+    return db.prepare('INSERT INTO contact_messages (name, email, subject, message) VALUES (@name, @email, @subject, @message)').run(data);
+  },
+  getContactMessages: () => db.prepare('SELECT * FROM contact_messages ORDER BY created_at DESC').all(),
 
   // Admin Auth
   verifyAdmin: (username, password) => {
