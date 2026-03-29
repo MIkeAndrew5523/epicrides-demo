@@ -195,6 +195,16 @@ router.post('/locations/:id/delete', requireAdmin, (req, res) => {
   res.redirect('/admin/locations');
 });
 
+// ===== GUIDE =====
+router.get('/guide', requireAdmin, (req, res) => {
+  res.render('layout', {
+    title: 'Site Guide - Epic Rides',
+    page: 'admin',
+    body: 'admin/guide',
+    siteContent: db.getSiteContent(),
+  });
+});
+
 // ===== INBOX (Contact Messages) =====
 router.get('/inbox', requireAdmin, (req, res) => {
   res.render('layout', {

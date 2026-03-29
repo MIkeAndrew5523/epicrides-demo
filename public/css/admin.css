@@ -821,3 +821,104 @@
   padding-top: 20px;
   border-top: 1px solid var(--admin-border);
 }
+
+/* ============================================================
+   GUIDE PAGE
+   ============================================================ */
+.guide-toc {
+  padding: 24px 32px;
+}
+
+.guide-toc-list {
+  padding-left: 20px;
+  line-height: 2;
+}
+
+.guide-toc-list ol {
+  padding-left: 20px;
+  list-style-type: lower-alpha;
+}
+
+.guide-toc-list a {
+  color: var(--admin-primary);
+  text-decoration: none;
+}
+
+.guide-toc-list a:hover {
+  text-decoration: underline;
+}
+
+.guide-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--admin-text);
+  margin-bottom: 16px;
+}
+
+.guide-h3 {
+  font-size: 1.05rem;
+  color: var(--admin-primary);
+  margin: 24px 0 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--admin-border);
+}
+
+.guide-h3:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.guide-list {
+  padding-left: 24px;
+  margin-bottom: 16px;
+  line-height: 1.8;
+  font-size: 0.93rem;
+}
+
+.guide-list li {
+  margin-bottom: 4px;
+}
+
+.guide-list a {
+  color: var(--admin-primary);
+}
+
+.guide-try {
+  margin: 8px 0 20px;
+}
+
+.guide-try a {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--admin-primary);
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.guide-try a:hover {
+  background: #002d52;
+}
+
+.guide-info-table {
+  margin-bottom: 16px;
+}
+
+.guide-info-table td:first-child {
+  width: 160px;
+  background: #f8fafc;
+}
+
+.guide-info-table code {
+  background: #e8edf2;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.guide-checklist li {
+  margin-bottom: 6px;
+}

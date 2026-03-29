@@ -1,0 +1,284 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Site Guide</h1>
+    <p class="admin-page-subtitle">How to navigate and test the EpicRides demo</p>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="admin-card guide-toc">
+    <div class="admin-card-header">
+      <h2>Table of Contents</h2>
+    </div>
+    <ol class="guide-toc-list">
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#public-pages">Public Website Pages</a>
+        <ol>
+          <li><a href="#homepage">Homepage</a></li>
+          <li><a href="#schedule">Bus Schedule</a></li>
+          <li><a href="#locations">Pick Up Locations</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact Page</a></li>
+        </ol>
+      </li>
+      <li><a href="#booking">Booking System</a>
+        <ol>
+          <li><a href="#step1">Step 1: Select Route</a></li>
+          <li><a href="#step2">Step 2: Your Information</a></li>
+          <li><a href="#step3">Step 3: Payment (Demo)</a></li>
+        </ol>
+      </li>
+      <li><a href="#admin-cms">Admin CMS</a>
+        <ol>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#manage-bookings">Manage Bookings</a></li>
+          <li><a href="#manage-schedules">Manage Schedules</a></li>
+          <li><a href="#manage-content">Manage Content</a></li>
+          <li><a href="#manage-locations">Manage Locations</a></li>
+          <li><a href="#inbox">Inbox</a></li>
+        </ol>
+      </li>
+      <li><a href="#testing">Recommended Testing Walkthrough</a></li>
+      <li><a href="#tech">Technical Details</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. Getting Started -->
+  <div class="admin-card" id="getting-started">
+    <div class="admin-card-header">
+      <h2>1. Getting Started</h2>
+    </div>
+    <p class="guide-text">This guide walks you through the EpicRides demo website, a full-stack replica of epicrides.ca built to demonstrate our development capabilities. The site includes a public-facing website with booking functionality and a full admin content management system (CMS).</p>
+
+    <h3 class="guide-h3">Access Details</h3>
+    <table class="admin-table guide-info-table">
+      <tbody>
+        <tr>
+          <td><strong>Demo URL</strong></td>
+          <td><a href="/" target="_blank"><%= 'https://' + (require('os').hostname() === 'localhost' ? 'localhost:3000' : 'web-production-e4c7f.up.railway.app') %></a></td>
+        </tr>
+        <tr>
+          <td><strong>Custom Domain</strong></td>
+          <td><a href="https://www.leishman.ca" target="_blank">www.leishman.ca</a> (if DNS is active)</td>
+        </tr>
+        <tr>
+          <td><strong>Admin Panel</strong></td>
+          <td><a href="/admin">/admin/login</a></td>
+        </tr>
+        <tr>
+          <td><strong>Admin Username</strong></td>
+          <td><code>admin</code></td>
+        </tr>
+        <tr>
+          <td><strong>Admin Password</strong></td>
+          <td><code>epicrides2026</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. Public Website Pages -->
+  <div class="admin-card" id="public-pages">
+    <div class="admin-card-header">
+      <h2>2. Public Website Pages</h2>
+    </div>
+    <p class="guide-text">The public-facing website replicates the look and feel of epicrides.ca. Here is each page and what to look for when testing:</p>
+
+    <h3 class="guide-h3" id="homepage">2.1 Homepage</h3>
+    <ul class="guide-list">
+      <li>Hero section with pricing cards ($44 Round Trip, $33.50 One Way, $25 Multi-Pass)</li>
+      <li>"Book Now" call-to-action button linking to the booking page</li>
+      <li>"Why Choose Epic Rides?" features section</li>
+      <li>Customer testimonials slider (auto-rotates every 5 seconds)</li>
+      <li>"Did You Know?" facts carousel</li>
+      <li>About section and full footer with contact info and social links</li>
+    </ul>
+    <p class="guide-try"><a href="/" target="_blank">Open Homepage &rarr;</a></p>
+
+    <h3 class="guide-h3" id="schedule">2.2 Bus Schedule Page</h3>
+    <ul class="guide-list">
+      <li>Full timetable with Vancouver-to-Whistler and Whistler-to-Vancouver routes</li>
+      <li>Departure times, arrival times, days of operation, and pricing</li>
+      <li>All schedule data is editable through the Admin CMS</li>
+    </ul>
+    <p class="guide-try"><a href="/schedule" target="_blank">Open Schedule &rarr;</a></p>
+
+    <h3 class="guide-h3" id="locations">2.3 Pick Up Locations</h3>
+    <ul class="guide-list">
+      <li>List of all pickup/dropoff locations with addresses</li>
+      <li>Locations are fully manageable through the admin panel</li>
+    </ul>
+    <p class="guide-try"><a href="/locations" target="_blank">Open Locations &rarr;</a></p>
+
+    <h3 class="guide-h3" id="faq">2.4 FAQ Page</h3>
+    <ul class="guide-list">
+      <li>Accordion-style FAQ (click a question to expand the answer)</li>
+      <li>Questions and answers are editable through the Admin CMS</li>
+    </ul>
+    <p class="guide-try"><a href="/faq" target="_blank">Open FAQ &rarr;</a></p>
+
+    <h3 class="guide-h3" id="contact">2.5 Contact Page</h3>
+    <ul class="guide-list">
+      <li>Contact information display (phone, email, address, hours)</li>
+      <li>Working contact form (name, email, subject, message)</li>
+      <li>Submissions are saved to the database and viewable in <a href="/admin/inbox">Admin &gt; Inbox</a></li>
+    </ul>
+    <p class="guide-try"><a href="/contact" target="_blank">Open Contact &rarr;</a></p>
+  </div>
+
+  <!-- 3. Booking System -->
+  <div class="admin-card" id="booking">
+    <div class="admin-card-header">
+      <h2>3. Booking System</h2>
+    </div>
+    <p class="guide-text">The booking system is a 3-step wizard that simulates the full booking experience. Navigate to it by clicking the orange "Book Now!" button in the navigation bar.</p>
+
+    <h3 class="guide-h3" id="step1">Step 1: Select Route</h3>
+    <ol class="guide-list">
+      <li>Choose direction: "Vancouver to Whistler" or "Whistler to Vancouver"</li>
+      <li>Select a departure time from the dropdown</li>
+      <li>Choose Round-Trip or One-Way</li>
+      <li>Pick travel date (and return date for round-trips)</li>
+      <li>Select number of passengers (price updates automatically)</li>
+      <li>Click "Continue to Your Info"</li>
+    </ol>
+
+    <h3 class="guide-h3" id="step2">Step 2: Your Information</h3>
+    <ol class="guide-list">
+      <li>Enter full name (required)</li>
+      <li>Enter email address (required, validated)</li>
+      <li>Enter phone number (optional)</li>
+      <li>Click "Continue to Payment"</li>
+    </ol>
+
+    <h3 class="guide-h3" id="step3">Step 3: Payment (Demo Mode)</h3>
+    <ul class="guide-list">
+      <li>Clearly marked as <strong>DEMO MODE</strong> (no real payment processed)</li>
+      <li>You can enter any test data (e.g., 4242 4242 4242 4242)</li>
+      <li>Order summary shows all booking details and total price</li>
+      <li>Click "Complete Booking" to receive a confirmation page with booking reference</li>
+    </ul>
+    <p class="guide-try"><a href="/book" target="_blank">Try Booking &rarr;</a></p>
+  </div>
+
+  <!-- 4. Admin CMS -->
+  <div class="admin-card" id="admin-cms">
+    <div class="admin-card-header">
+      <h2>4. Admin Content Management System (CMS)</h2>
+    </div>
+    <p class="guide-text">The admin panel allows you to manage all website content without touching code. Use the navigation bar above to access each section.</p>
+
+    <h3 class="guide-h3" id="dashboard">4.1 Dashboard</h3>
+    <ul class="guide-list">
+      <li>Total bookings, today's bookings, confirmed vs. cancelled counts</li>
+      <li>Unread inbox messages count</li>
+      <li>Quick links to all management sections</li>
+    </ul>
+    <p class="guide-try"><a href="/admin">Open Dashboard &rarr;</a></p>
+
+    <h3 class="guide-h3" id="manage-bookings">4.2 Manage Bookings</h3>
+    <ul class="guide-list">
+      <li>View all bookings with customer details, dates, and prices</li>
+      <li>Cancel bookings as needed</li>
+    </ul>
+    <p class="guide-try"><a href="/admin/bookings">Open Bookings &rarr;</a></p>
+
+    <h3 class="guide-h3" id="manage-schedules">4.3 Manage Schedules</h3>
+    <ul class="guide-list">
+      <li>Add new bus departure times with pricing</li>
+      <li>Edit existing schedules (times, prices, days of operation)</li>
+      <li>Activate or deactivate routes (inactive routes are hidden from the public site)</li>
+    </ul>
+    <p class="guide-try"><a href="/admin/schedules">Open Schedules &rarr;</a></p>
+
+    <h3 class="guide-h3" id="manage-content">4.4 Manage Content</h3>
+    <p class="guide-text">This is the central hub for editing site text:</p>
+    <ul class="guide-list">
+      <li><strong>Site Content:</strong> hero title, pricing, phone, email, address, about text</li>
+      <li><strong>Testimonials:</strong> add, edit, or remove customer reviews</li>
+      <li><strong>Did You Know Facts:</strong> manage the rotating facts carousel</li>
+      <li><strong>FAQ:</strong> add, edit, or remove frequently asked questions</li>
+    </ul>
+    <p class="guide-try"><a href="/admin/content">Open Content &rarr;</a></p>
+
+    <h3 class="guide-h3" id="manage-locations">4.5 Manage Locations</h3>
+    <ul class="guide-list">
+      <li>Add, edit, or delete pickup/dropoff locations</li>
+      <li>Each location includes city, name, address, coordinates, and description</li>
+    </ul>
+    <p class="guide-try"><a href="/admin/locations">Open Locations &rarr;</a></p>
+
+    <h3 class="guide-h3" id="inbox">4.6 Inbox</h3>
+    <ul class="guide-list">
+      <li>All contact form submissions appear here (no email setup required)</li>
+      <li>Unread messages are highlighted with a blue indicator</li>
+      <li>Click a message to read the full content</li>
+      <li>Mark messages as read/unread or delete them</li>
+    </ul>
+    <p class="guide-try"><a href="/admin/inbox">Open Inbox &rarr;</a></p>
+  </div>
+
+  <!-- 5. Testing Walkthrough -->
+  <div class="admin-card" id="testing">
+    <div class="admin-card-header">
+      <h2>5. Recommended Testing Walkthrough</h2>
+    </div>
+    <p class="guide-text">Follow these steps to fully experience the demo site:</p>
+
+    <h3 class="guide-h3">Test the Public Site</h3>
+    <ol class="guide-list guide-checklist">
+      <li>Visit the <a href="/" target="_blank">homepage</a> and scroll through all sections</li>
+      <li>Check the <a href="/schedule" target="_blank">Bus Schedule</a> page for departure times</li>
+      <li>Browse the <a href="/locations" target="_blank">Pick Up Locations</a> page</li>
+      <li>Open the <a href="/faq" target="_blank">FAQ</a> and click through several questions</li>
+      <li>Submit a test message on the <a href="/contact" target="_blank">Contact</a> page</li>
+    </ol>
+
+    <h3 class="guide-h3">Test the Booking Flow</h3>
+    <ol class="guide-list guide-checklist">
+      <li>Click <a href="/book" target="_blank">"Book Now!"</a> and complete all 3 steps</li>
+      <li>Try both Round-Trip and One-Way options</li>
+      <li>Verify the price updates when changing passengers or trip type</li>
+      <li>Complete a test booking and note the confirmation reference number</li>
+    </ol>
+
+    <h3 class="guide-h3">Test the Admin CMS</h3>
+    <ol class="guide-list guide-checklist">
+      <li>Review the <a href="/admin">Dashboard</a> stats</li>
+      <li>Check <a href="/admin/bookings">Bookings</a> to see your test booking</li>
+      <li>Try editing a schedule in <a href="/admin/schedules">Schedules</a>, then check the public Schedule page</li>
+      <li>Edit the hero title in <a href="/admin/content">Content</a>, then refresh the homepage to see the change</li>
+      <li>Check the <a href="/admin/inbox">Inbox</a> to see your test contact form submission</li>
+      <li>Try adding a new FAQ entry in <a href="/admin/content">Content</a>, then verify it appears on the public FAQ page</li>
+    </ol>
+  </div>
+
+  <!-- 6. Technical Details -->
+  <div class="admin-card" id="tech">
+    <div class="admin-card-header">
+      <h2>6. Technical Details</h2>
+    </div>
+    <p class="guide-text">For transparency, here is what powers this demo:</p>
+
+    <table class="admin-table guide-info-table">
+      <tbody>
+        <tr><td><strong>Backend</strong></td><td>Node.js + Express</td></tr>
+        <tr><td><strong>Templates</strong></td><td>EJS (server-side rendering)</td></tr>
+        <tr><td><strong>Database</strong></td><td>SQLite (file-based, no external DB needed)</td></tr>
+        <tr><td><strong>Frontend</strong></td><td>Vanilla CSS & JavaScript (no frameworks)</td></tr>
+        <tr><td><strong>Hosting</strong></td><td>Railway (auto-deploys from GitHub on push)</td></tr>
+        <tr><td><strong>Auth</strong></td><td>Session-based with bcrypt password hashing</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="guide-h3">Key Features Demonstrated</h3>
+    <ul class="guide-list">
+      <li>Full-stack web application with database-driven content</li>
+      <li>Responsive design (works on desktop, tablet, and mobile)</li>
+      <li>Multi-step booking wizard with real-time pricing</li>
+      <li>Admin CMS for non-technical content management</li>
+      <li>Contact form with server-side inbox (no email configuration needed)</li>
+      <li>Secure authentication with hashed passwords</li>
+      <li>Continuous deployment (code changes go live automatically)</li>
+    </ul>
+  </div>
+</div>
