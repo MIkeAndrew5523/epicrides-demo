@@ -1,0 +1,59 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Manage Bookings</h1>
+  </div>
+
+  <div class="admin-card">
+    <% if (bookings.length === 0) { %>
+      <div class="admin-empty">No bookings found.</div>
+    <% } else { %>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Ref</th>
+              <th>Customer</th>
+              <th>Route</th>
+              <th>Date</th>
+              <th>Pax</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% bookings.forEach(b => { %>
+              <tr>
+                <td><strong><%= b.booking_ref %></strong></td>
+                <td>
+                  <%= b.customer_name %><br>
+                  <span class="text-muted" style="font-size:0.75rem;"><%= b.customer_email %></span>
+                </td>
+                <td><%= b.departure_city %> &rarr; <%= b.arrival_city %></td>
+                <td><%= b.travel_date %></td>
+                <td class="text-center"><%= b.passengers %></td>
+                <td><%= b.trip_type %></td>
+                <td>$<%= parseFloat(b.total_price).toFixed(2) %></td>
+                <td>
+                  <span class="status-badge status-badge--<%= b.status %>"><%= b.status %></span>
+                </td>
+                <td style="font-size:0.75rem;"><%= b.created_at %></td>
+                <td class="actions">
+                  <% if (b.status === 'confirmed') { %>
+                    <form action="/admin/bookings/<%= b.booking_ref %>/cancel" method="POST" style="display:inline;" onsubmit="return confirm('Cancel this booking?')">
+                      <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Cancel</button>
+                    </form>
+                  <% } else { %>
+                    <span class="text-muted">--</span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>

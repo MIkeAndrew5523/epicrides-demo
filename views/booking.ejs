@@ -1,0 +1,408 @@
+<section class="booking-hero">
+  <div class="container">
+    <h1>Book Your Ride</h1>
+    <p>Express bus service between Vancouver and Whistler</p>
+  </div>
+</section>
+
+<section class="booking-section">
+  <div class="container">
+    <div class="booking-stepper">
+      <div class="stepper-step active" data-step="1">
+        <span class="stepper-number">1</span>
+        <span class="stepper-label">Select Route</span>
+      </div>
+      <div class="stepper-line"></div>
+      <div class="stepper-step" data-step="2">
+        <span class="stepper-number">2</span>
+        <span class="stepper-label">Your Info</span>
+      </div>
+      <div class="stepper-line"></div>
+      <div class="stepper-step" data-step="3">
+        <span class="stepper-number">3</span>
+        <span class="stepper-label">Payment</span>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- STEP 1: Route Selection                                      -->
+    <!-- ============================================================ -->
+    <div class="booking-step" id="step-1">
+      <h2 class="booking-step-title">Choose Your Route</h2>
+
+      <div class="route-cards">
+        <label class="route-card active">
+          <input type="radio" name="direction" value="van-to-whis" checked>
+          <div class="route-card-inner">
+            <span class="route-city">Vancouver</span>
+            <span class="route-arrow">&#10230;</span>
+            <span class="route-city">Whistler</span>
+          </div>
+        </label>
+        <label class="route-card">
+          <input type="radio" name="direction" value="whis-to-van">
+          <div class="route-card-inner">
+            <span class="route-city">Whistler</span>
+            <span class="route-arrow">&#10230;</span>
+            <span class="route-city">Vancouver</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="booking-form-grid">
+        <div class="form-group">
+          <label for="departure-time">Departure Time</label>
+          <select id="departure-time" class="form-control" required>
+            <option value="">Select a departure...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Trip Type</label>
+          <div class="trip-type-toggle">
+            <button type="button" class="trip-toggle-btn active" data-type="roundtrip">Round-Trip</button>
+            <button type="button" class="trip-toggle-btn" data-type="oneway">One-Way</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="travel-date">Travel Date</label>
+          <input type="date" id="travel-date" class="form-control" required>
+        </div>
+
+        <div class="form-group return-date-group">
+          <label for="return-date">Return Date</label>
+          <input type="date" id="return-date" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="passengers">Passengers</label>
+          <select id="passengers" class="form-control">
+            <% for (let i = 1; i <= 10; i++) { %>
+            <option value="<%= i %>"><%= i %> passenger<%= i > 1 ? 's' : '' %></option>
+            <% } %>
+          </select>
+        </div>
+      </div>
+
+      <div class="price-summary">
+        <div class="price-summary-inner">
+          <div class="price-line">
+            <span class="price-label">Price per person:</span>
+            <span class="price-value" id="price-per-person">$0.00</span>
+          </div>
+          <div class="price-line price-line--total">
+            <span class="price-label">Total:</span>
+            <span class="price-value" id="price-total">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-nav">
+        <div></div>
+        <button type="button" class="btn btn-primary" id="to-step-2">Continue to Your Info</button>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- STEP 2: Customer Info                                        -->
+    <!-- ============================================================ -->
+    <div class="booking-step" id="step-2" style="display:none;">
+      <h2 class="booking-step-title">Your Information</h2>
+
+      <div class="booking-form-fields">
+        <div class="form-group">
+          <label for="customer-name">Full Name <span class="required">*</span></label>
+          <input type="text" id="customer-name" class="form-control" placeholder="John Smith" required>
+        </div>
+
+        <div class="form-group">
+          <label for="customer-email">Email Address <span class="required">*</span></label>
+          <input type="email" id="customer-email" class="form-control" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="customer-phone">Phone Number <span class="optional">(optional)</span></label>
+          <input type="tel" id="customer-phone" class="form-control" placeholder="604-555-1234">
+        </div>
+      </div>
+
+      <div class="booking-nav">
+        <button type="button" class="btn btn-secondary" id="back-to-1">Back</button>
+        <button type="button" class="btn btn-primary" id="to-step-3">Continue to Payment</button>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- STEP 3: Payment (DEMO)                                       -->
+    <!-- ============================================================ -->
+    <div class="booking-step" id="step-3" style="display:none;">
+      <h2 class="booking-step-title">Payment</h2>
+
+      <div class="demo-badge">
+        <span class="demo-badge-icon">&#9888;</span>
+        DEMO MODE &mdash; No real payment will be processed
+      </div>
+
+      <div class="payment-card">
+        <div class="payment-card-header">
+          <span class="payment-card-title">Credit Card</span>
+          <div class="payment-card-icons">
+            <span class="cc-icon">VISA</span>
+            <span class="cc-icon">MC</span>
+            <span class="cc-icon">AMEX</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" class="form-control" placeholder="4242 4242 4242 4242" maxlength="19">
+        </div>
+
+        <div class="payment-row">
+          <div class="form-group">
+            <label for="card-expiry">Expiry Date</label>
+            <input type="text" id="card-expiry" class="form-control" placeholder="MM / YY" maxlength="7">
+          </div>
+          <div class="form-group">
+            <label for="card-cvv">CVV</label>
+            <input type="text" id="card-cvv" class="form-control" placeholder="123" maxlength="4">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-name">Name on Card</label>
+          <input type="text" id="card-name" class="form-control" placeholder="JOHN SMITH">
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="order-summary-details" id="order-summary-details"></div>
+      </div>
+
+      <div class="booking-nav">
+        <button type="button" class="btn btn-secondary" id="back-to-2">Back</button>
+        <button type="button" class="btn btn-accent btn-lg" id="complete-booking">Complete Booking</button>
+      </div>
+    </div>
+
+    <!-- Error display -->
+    <div class="booking-error" id="booking-error" style="display:none;"></div>
+  </div>
+</section>
+
+<!-- Schedule data for JS -->
+<script>
+(function() {
+  var schedules = <%- JSON.stringify(schedules) %>;
+
+  // State
+  var state = {
+    direction: 'van-to-whis',
+    tripType: 'roundtrip',
+    scheduleId: null,
+    travelDate: '',
+    returnDate: '',
+    passengers: 1,
+    pricePerPerson: 0,
+  };
+
+  // Elements
+  var departureSelect = document.getElementById('departure-time');
+  var travelDateInput = document.getElementById('travel-date');
+  var returnDateInput = document.getElementById('return-date');
+  var returnGroup = document.querySelector('.return-date-group');
+  var passengersSelect = document.getElementById('passengers');
+  var pricePerEl = document.getElementById('price-per-person');
+  var priceTotalEl = document.getElementById('price-total');
+
+  // Set min date to today
+  var today = new Date().toISOString().split('T')[0];
+  travelDateInput.setAttribute('min', today);
+  returnDateInput.setAttribute('min', today);
+
+  // Populate departure dropdown based on direction
+  function populateDepartures() {
+    var fromCity = state.direction === 'van-to-whis' ? 'Vancouver' : 'Whistler';
+    var filtered = schedules.filter(function(s) { return s.departure_city === fromCity; });
+    departureSelect.innerHTML = '<option value="">Select a departure...</option>';
+    filtered.forEach(function(s) {
+      var opt = document.createElement('option');
+      opt.value = s.id;
+      opt.textContent = s.departure_time + ' \u2192 ' + s.arrival_time;
+      opt.dataset.priceOneway = s.price_oneway;
+      opt.dataset.priceRoundtrip = s.price_roundtrip;
+      departureSelect.appendChild(opt);
+    });
+    state.scheduleId = null;
+    updatePrice();
+  }
+
+  function updatePrice() {
+    var selected = departureSelect.options[departureSelect.selectedIndex];
+    if (!selected || !selected.value) {
+      state.pricePerPerson = 0;
+    } else {
+      state.pricePerPerson = state.tripType === 'roundtrip'
+        ? parseFloat(selected.dataset.priceRoundtrip)
+        : parseFloat(selected.dataset.priceOneway);
+    }
+    var total = state.pricePerPerson * state.passengers;
+    pricePerEl.textContent = '$' + state.pricePerPerson.toFixed(2);
+    priceTotalEl.textContent = '$' + total.toFixed(2);
+  }
+
+  // Direction cards
+  document.querySelectorAll('.route-card input').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      document.querySelectorAll('.route-card').forEach(function(c) { c.classList.remove('active'); });
+      this.closest('.route-card').classList.add('active');
+      state.direction = this.value;
+      populateDepartures();
+    });
+  });
+
+  // Trip type toggle
+  document.querySelectorAll('.trip-toggle-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.trip-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      state.tripType = this.dataset.type;
+      if (state.tripType === 'oneway') {
+        returnGroup.style.display = 'none';
+        returnDateInput.value = '';
+      } else {
+        returnGroup.style.display = '';
+      }
+      updatePrice();
+    });
+  });
+
+  // Departure time change
+  departureSelect.addEventListener('change', function() {
+    state.scheduleId = this.value ? parseInt(this.value) : null;
+    updatePrice();
+  });
+
+  // Passengers change
+  passengersSelect.addEventListener('change', function() {
+    state.passengers = parseInt(this.value);
+    updatePrice();
+  });
+
+  // Travel date change — update return min
+  travelDateInput.addEventListener('change', function() {
+    state.travelDate = this.value;
+    returnDateInput.setAttribute('min', this.value || today);
+  });
+
+  returnDateInput.addEventListener('change', function() {
+    state.returnDate = this.value;
+  });
+
+  // Step navigation
+  function showStep(num) {
+    document.querySelectorAll('.booking-step').forEach(function(s) { s.style.display = 'none'; });
+    document.getElementById('step-' + num).style.display = '';
+    document.querySelectorAll('.stepper-step').forEach(function(s) {
+      var sNum = parseInt(s.dataset.step);
+      s.classList.toggle('active', sNum === num);
+      s.classList.toggle('completed', sNum < num);
+    });
+    window.scrollTo({ top: document.querySelector('.booking-stepper').offsetTop - 20, behavior: 'smooth' });
+  }
+
+  function showError(msg) {
+    var el = document.getElementById('booking-error');
+    el.textContent = msg;
+    el.style.display = '';
+    setTimeout(function() { el.style.display = 'none'; }, 5000);
+  }
+
+  document.getElementById('to-step-2').addEventListener('click', function() {
+    if (!state.scheduleId) return showError('Please select a departure time.');
+    if (!travelDateInput.value) return showError('Please select a travel date.');
+    if (state.tripType === 'roundtrip' && !returnDateInput.value) return showError('Please select a return date for your round-trip.');
+    if (state.tripType === 'roundtrip' && returnDateInput.value <= travelDateInput.value) return showError('Return date must be after the travel date.');
+    state.travelDate = travelDateInput.value;
+    state.returnDate = returnDateInput.value;
+    state.passengers = parseInt(passengersSelect.value);
+    showStep(2);
+  });
+
+  document.getElementById('back-to-1').addEventListener('click', function() { showStep(1); });
+
+  document.getElementById('to-step-3').addEventListener('click', function() {
+    var name = document.getElementById('customer-name').value.trim();
+    var email = document.getElementById('customer-email').value.trim();
+    if (!name) return showError('Please enter your full name.');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Please enter a valid email address.');
+
+    // Build order summary
+    var selected = departureSelect.options[departureSelect.selectedIndex];
+    var total = state.pricePerPerson * state.passengers;
+    var fromCity = state.direction === 'van-to-whis' ? 'Vancouver' : 'Whistler';
+    var toCity = state.direction === 'van-to-whis' ? 'Whistler' : 'Vancouver';
+
+    var summaryHtml = '';
+    summaryHtml += '<div class="summary-row"><span>Route:</span><span>' + fromCity + ' \u2192 ' + toCity + '</span></div>';
+    summaryHtml += '<div class="summary-row"><span>Departure:</span><span>' + selected.textContent + '</span></div>';
+    summaryHtml += '<div class="summary-row"><span>Trip Type:</span><span>' + (state.tripType === 'roundtrip' ? 'Round-Trip' : 'One-Way') + '</span></div>';
+    summaryHtml += '<div class="summary-row"><span>Travel Date:</span><span>' + state.travelDate + '</span></div>';
+    if (state.tripType === 'roundtrip') {
+      summaryHtml += '<div class="summary-row"><span>Return Date:</span><span>' + state.returnDate + '</span></div>';
+    }
+    summaryHtml += '<div class="summary-row"><span>Passengers:</span><span>' + state.passengers + '</span></div>';
+    summaryHtml += '<div class="summary-row"><span>Price per person:</span><span>$' + state.pricePerPerson.toFixed(2) + '</span></div>';
+    summaryHtml += '<div class="summary-row summary-row--total"><span>Total:</span><span>$' + total.toFixed(2) + '</span></div>';
+
+    document.getElementById('order-summary-details').innerHTML = summaryHtml;
+    showStep(3);
+  });
+
+  document.getElementById('back-to-2').addEventListener('click', function() { showStep(2); });
+
+  // Complete booking
+  document.getElementById('complete-booking').addEventListener('click', function() {
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Processing...';
+
+    var payload = {
+      customer_name: document.getElementById('customer-name').value.trim(),
+      customer_email: document.getElementById('customer-email').value.trim(),
+      customer_phone: document.getElementById('customer-phone').value.trim(),
+      schedule_id: state.scheduleId,
+      travel_date: state.travelDate,
+      return_date: state.tripType === 'roundtrip' ? state.returnDate : '',
+      passengers: state.passengers,
+      trip_type: state.tripType,
+    };
+
+    fetch('/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        window.location.href = '/booking/' + data.data.booking_ref;
+      } else {
+        showError(data.error || 'Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Complete Booking';
+      }
+    })
+    .catch(function() {
+      showError('Network error. Please check your connection and try again.');
+      btn.disabled = false;
+      btn.textContent = 'Complete Booking';
+    });
+  });
+
+  // Init
+  populateDepartures();
+})();
+</script>

@@ -1,0 +1,178 @@
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-route">Vancouver &rarr; Whistler</div>
+    <h1 class="hero-title"><%= siteContent.hero_title %></h1>
+    <p class="hero-subtitle"><%= siteContent.hero_subtitle %></p>
+    <div class="hero-prices">
+      <div class="price-badge">
+        <span class="price-amount">$<%= siteContent.price_roundtrip %></span>
+        <span class="price-label">Round Trip</span>
+      </div>
+      <div class="price-badge">
+        <span class="price-amount">$<%= siteContent.price_oneway %></span>
+        <span class="price-label">One Way</span>
+      </div>
+      <div class="price-badge">
+        <span class="price-amount">$<%= siteContent.price_multipass %></span>
+        <span class="price-label">Multi-Pass</span>
+      </div>
+    </div>
+    <a href="/book" class="hero-cta">Book Now</a>
+  </div>
+</section>
+
+<!-- FEATURES GRID -->
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">Why Choose Epic Rides?</h2>
+    <p class="section-subtitle">The #1 recommended bus service between Vancouver and Whistler</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">&#128701;</span>
+        <h3>Onboard Washrooms</h3>
+        <p>All our luxury shuttles are equipped with onboard washrooms for your comfort.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#10003;</span>
+        <h3>All-Inclusive Fares</h3>
+        <p>One price covers everything. No hidden fees, no surprises, no extra charges.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#128176;</span>
+        <h3>Most Affordable</h3>
+        <p>Starting from just $<%= siteContent.price_multipass %> per round trip with our multi-pass options.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#128737;</span>
+        <h3>Safety Monitoring</h3>
+        <p>Real-time GPS tracking and professional drivers ensure your safety.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#128222;</span>
+        <h3>24/7 Support</h3>
+        <p>Call us anytime at <strong><%= siteContent.phone %></strong>. We're always here for you.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#127890;</span>
+        <h3>Free Luggage &amp; Gear</h3>
+        <p>Bring all your luggage, skis, snowboards, and bikes at no extra cost.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#9200;</span>
+        <h3>On-Time Reliability</h3>
+        <p>We pride ourselves on punctual departures and arrivals, every single trip.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#128652;</span>
+        <h3>Multiple Daily Departures</h3>
+        <p>The most departure times from each city. A schedule that fits your plans.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#127961;</span>
+        <h3>Direct Downtown Service</h3>
+        <p>Picked up and dropped off right in downtown Vancouver and Whistler Village.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#128260;</span>
+        <h3>Free Changes</h3>
+        <p>The most flexible cancellation and change policy. Change your trip for free.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#128101;</span>
+        <h3>Group Discounts</h3>
+        <p>Travelling with a group? We offer special rates for parties of 6 or more.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">&#127915;</span>
+        <h3>Multi-Pass Savings</h3>
+        <p>Frequent traveller? Our multi-pass starts as low as $<%= siteContent.price_multipass %> per round trip.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK FACTS -->
+<section class="quick-facts-section">
+  <div class="container">
+    <h2 class="section-title">Quick Facts</h2>
+    <ul class="quick-facts-list">
+      <li>Direct, non-stop service &mdash; only <%= siteContent.trip_time %> minutes to Whistler</li>
+      <li>All luggage, skis, snowboards, and bikes travel free</li>
+      <li>Locally owned and operated since 2012</li>
+      <li>The newest luxury shuttles on the Sea to Sky corridor</li>
+      <li>Paperless boarding &mdash; no need to print your ticket</li>
+      <li>We never cancel a departure due to road closures</li>
+      <li>Multi-pass options starting from $<%= siteContent.price_multipass %> per round trip</li>
+      <li>Open 7 days a week &mdash; <%= siteContent.hours %></li>
+    </ul>
+  </div>
+</section>
+
+<!-- TESTIMONIALS SLIDER -->
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">What Our Riders Say</h2>
+    <p class="section-subtitle">Don't just take our word for it</p>
+    <div class="testimonial-slider" id="testimonialSlider">
+      <div class="testimonial-track" id="testimonialTrack">
+        <% testimonials.forEach(function(t) { %>
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <% for (var s = 0; s < t.rating; s++) { %>&#9733;<% } %>
+            </div>
+            <p class="testimonial-quote">"<%= t.quote %>"</p>
+            <p class="testimonial-author">&mdash; <%= t.author %></p>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-arrow" id="testimonialPrev" aria-label="Previous testimonial">&#10094;</button>
+        <div class="slider-dots" id="testimonialDots">
+          <% testimonials.forEach(function(t, i) { %>
+          <button class="slider-dot<%= i === 0 ? ' active' : '' %>" data-index="<%= i %>" aria-label="Slide <%= i + 1 %>"></button>
+          <% }); %>
+        </div>
+        <button class="slider-arrow" id="testimonialNext" aria-label="Next testimonial">&#10095;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DID YOU KNOW SLIDER -->
+<section class="did-you-know-section">
+  <div class="container">
+    <h2 class="section-title">Did You Know?</h2>
+    <div class="dyk-slider" id="dykSlider">
+      <% facts.forEach(function(f, i) { %>
+      <div class="dyk-slide<%= i === 0 ? ' active' : '' %>" data-index="<%= i %>">
+        <p><%= f.fact_text %></p>
+      </div>
+      <% }); %>
+    </div>
+    <div class="dyk-dots" id="dykDots">
+      <% facts.forEach(function(f, i) { %>
+      <button class="dyk-dot<%= i === 0 ? ' active' : '' %>" data-index="<%= i %>" aria-label="Fact <%= i + 1 %>"></button>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>About Epic Rides</h2>
+        <p><%= siteContent.about_text %></p>
+        <a href="/book" class="btn btn-accent">Book Your Trip</a>
+      </div>
+      <div class="about-image">
+        <img src="/assets/sample-pic-1.jpg" alt="Epic Rides bus on the Sea to Sky Highway">
+      </div>
+    </div>
+  </div>
+</section>

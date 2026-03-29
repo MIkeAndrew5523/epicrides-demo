@@ -1,0 +1,7 @@
+node_modules/
+epicrides.db
+.env
+*.db-journal
+.claude/
+*.db-shm
+*.db-wal

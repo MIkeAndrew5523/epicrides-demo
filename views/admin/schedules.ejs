@@ -1,0 +1,165 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Manage Schedules</h1>
+  </div>
+
+  <!-- Add New Schedule -->
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h2>Add New Schedule</h2>
+    </div>
+    <form action="/admin/schedules" method="POST">
+      <div class="admin-form-row">
+        <div class="admin-form-group">
+          <label for="new-departure-city">Departure City</label>
+          <input type="text" id="new-departure-city" name="departure_city" required placeholder="e.g. Vancouver">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-arrival-city">Arrival City</label>
+          <input type="text" id="new-arrival-city" name="arrival_city" required placeholder="e.g. Whistler">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-departure-time">Departure Time</label>
+          <input type="text" id="new-departure-time" name="departure_time" required placeholder="e.g. 6:25 AM">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-arrival-time">Arrival Time</label>
+          <input type="text" id="new-arrival-time" name="arrival_time" required placeholder="e.g. 8:10 AM">
+        </div>
+      </div>
+      <div class="admin-form-row">
+        <div class="admin-form-group">
+          <label for="new-days">Days of Week</label>
+          <input type="text" id="new-days" name="days_of_week" required placeholder="Mon,Tue,Wed,Thu,Fri,Sat,Sun" value="Mon,Tue,Wed,Thu,Fri,Sat,Sun">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-price-ow">One-Way Price</label>
+          <input type="number" id="new-price-ow" name="price_oneway" step="0.01" required placeholder="33.50">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-price-rt">Round-Trip Price</label>
+          <input type="number" id="new-price-rt" name="price_roundtrip" step="0.01" required placeholder="44.00">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-sort">Sort Order</label>
+          <input type="number" id="new-sort" name="sort_order" value="0">
+        </div>
+      </div>
+      <div class="admin-form-actions">
+        <button type="submit" class="btn-admin btn-admin-primary">Add Schedule</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Existing Schedules -->
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h2>Existing Schedules (<%= schedules.length %>)</h2>
+    </div>
+
+    <% if (schedules.length === 0) { %>
+      <div class="admin-empty">No schedules found.</div>
+    <% } else { %>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Route</th>
+              <th>Depart</th>
+              <th>Arrive</th>
+              <th>Days</th>
+              <th>One-Way</th>
+              <th>Round-Trip</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% schedules.forEach(s => { %>
+              <tr>
+                <td><%= s.id %></td>
+                <td><%= s.departure_city %> &rarr; <%= s.arrival_city %></td>
+                <td><%= s.departure_time %></td>
+                <td><%= s.arrival_time %></td>
+                <td style="font-size:0.75rem;"><%= s.days_of_week %></td>
+                <td>$<%= parseFloat(s.price_oneway).toFixed(2) %></td>
+                <td>$<%= parseFloat(s.price_roundtrip).toFixed(2) %></td>
+                <td>
+                  <span class="status-badge status-badge--<%= s.active ? 'active' : 'inactive' %>">
+                    <%= s.active ? 'Active' : 'Inactive' %>
+                  </span>
+                </td>
+                <td class="actions">
+                  <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('schedule-<%= s.id %>')">Edit</button>
+                  <form action="/admin/schedules/<%= s.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this schedule?')">
+                    <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              <!-- Inline edit row -->
+              <tr id="schedule-<%= s.id %>" style="display:none;">
+                <td colspan="9">
+                  <form action="/admin/schedules/<%= s.id %>/update" method="POST">
+                    <div class="admin-form-row">
+                      <div class="admin-form-group">
+                        <label>Departure City</label>
+                        <input type="text" name="departure_city" value="<%= s.departure_city %>" required>
+                      </div>
+                      <div class="admin-form-group">
+                        <label>Arrival City</label>
+                        <input type="text" name="arrival_city" value="<%= s.arrival_city %>" required>
+                      </div>
+                      <div class="admin-form-group">
+                        <label>Departure Time</label>
+                        <input type="text" name="departure_time" value="<%= s.departure_time %>" required>
+                      </div>
+                      <div class="admin-form-group">
+                        <label>Arrival Time</label>
+                        <input type="text" name="arrival_time" value="<%= s.arrival_time %>" required>
+                      </div>
+                    </div>
+                    <div class="admin-form-row">
+                      <div class="admin-form-group">
+                        <label>Days of Week</label>
+                        <input type="text" name="days_of_week" value="<%= s.days_of_week %>" required>
+                      </div>
+                      <div class="admin-form-group">
+                        <label>One-Way Price</label>
+                        <input type="number" name="price_oneway" value="<%= s.price_oneway %>" step="0.01" required>
+                      </div>
+                      <div class="admin-form-group">
+                        <label>Round-Trip Price</label>
+                        <input type="number" name="price_roundtrip" value="<%= s.price_roundtrip %>" step="0.01" required>
+                      </div>
+                      <div class="admin-form-group">
+                        <label>&nbsp;</label>
+                        <div class="admin-checkbox-group">
+                          <input type="checkbox" name="active" id="active-<%= s.id %>" value="1" <%= s.active ? 'checked' : '' %>>
+                          <label for="active-<%= s.id %>">Active</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="admin-form-actions">
+                      <button type="submit" class="btn-admin btn-admin-primary btn-admin-sm">Save Changes</button>
+                      <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('schedule-<%= s.id %>')">Cancel</button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  function toggleEdit(id) {
+    var row = document.getElementById(id);
+    if (row) {
+      row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+    }
+  }
+</script>

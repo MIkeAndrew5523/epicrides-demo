@@ -1,0 +1,131 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Manage Locations</h1>
+  </div>
+
+  <!-- Add New Location -->
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h2>Add New Location</h2>
+    </div>
+    <form action="/admin/locations" method="POST">
+      <div class="admin-form-row">
+        <div class="admin-form-group">
+          <label for="new-loc-city">City</label>
+          <input type="text" id="new-loc-city" name="city" required placeholder="e.g. Vancouver">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-loc-name">Location Name</label>
+          <input type="text" id="new-loc-name" name="name" required placeholder="e.g. Downtown Vancouver">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-loc-address">Address</label>
+          <input type="text" id="new-loc-address" name="address" required placeholder="e.g. 1088 Melville St">
+        </div>
+      </div>
+      <div class="admin-form-row">
+        <div class="admin-form-group">
+          <label for="new-loc-lat">Latitude</label>
+          <input type="number" id="new-loc-lat" name="lat" step="0.0001" placeholder="49.2860">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-loc-lng">Longitude</label>
+          <input type="number" id="new-loc-lng" name="lng" step="0.0001" placeholder="-123.1245">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-loc-sort">Sort Order</label>
+          <input type="number" id="new-loc-sort" name="sort_order" value="0">
+        </div>
+      </div>
+      <div class="admin-form-group">
+        <label for="new-loc-desc">Description</label>
+        <textarea id="new-loc-desc" name="description" rows="2" placeholder="Brief description of this pickup location..."></textarea>
+      </div>
+      <div class="admin-form-actions">
+        <button type="submit" class="btn-admin btn-admin-primary">Add Location</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Existing Locations -->
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h2>Existing Locations (<%= locations.length %>)</h2>
+    </div>
+
+    <% if (locations.length === 0) { %>
+      <div class="admin-empty">No locations yet.</div>
+    <% } else { %>
+      <% locations.forEach(loc => { %>
+        <div class="content-item">
+          <div class="content-item-header">
+            <div>
+              <div class="content-item-text"><strong><%= loc.name %></strong> (<%= loc.city %>)</div>
+              <div class="content-item-meta">
+                <%= loc.address %> | Lat: <%= loc.lat %>, Lng: <%= loc.lng %> | Order: <%= loc.sort_order %>
+              </div>
+              <% if (loc.description) { %>
+                <div class="content-item-meta"><%= loc.description %></div>
+              <% } %>
+            </div>
+            <div class="content-item-actions">
+              <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('loc-<%= loc.id %>')">Edit</button>
+              <form action="/admin/locations/<%= loc.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this location?')">
+                <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+          <div class="edit-form" id="loc-<%= loc.id %>">
+            <form action="/admin/locations/<%= loc.id %>/update" method="POST">
+              <div class="admin-form-row">
+                <div class="admin-form-group">
+                  <label>City</label>
+                  <input type="text" name="city" value="<%= loc.city %>" required>
+                </div>
+                <div class="admin-form-group">
+                  <label>Location Name</label>
+                  <input type="text" name="name" value="<%= loc.name %>" required>
+                </div>
+                <div class="admin-form-group">
+                  <label>Address</label>
+                  <input type="text" name="address" value="<%= loc.address %>" required>
+                </div>
+              </div>
+              <div class="admin-form-row">
+                <div class="admin-form-group">
+                  <label>Latitude</label>
+                  <input type="number" name="lat" value="<%= loc.lat %>" step="0.0001">
+                </div>
+                <div class="admin-form-group">
+                  <label>Longitude</label>
+                  <input type="number" name="lng" value="<%= loc.lng %>" step="0.0001">
+                </div>
+                <div class="admin-form-group">
+                  <label>Sort Order</label>
+                  <input type="number" name="sort_order" value="<%= loc.sort_order %>">
+                </div>
+              </div>
+              <div class="admin-form-group">
+                <label>Description</label>
+                <textarea name="description" rows="2"><%= loc.description || '' %></textarea>
+              </div>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn-admin btn-admin-primary btn-admin-sm">Save Changes</button>
+                <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('loc-<%= loc.id %>')">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  function toggleEdit(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('open');
+    }
+  }
+</script>

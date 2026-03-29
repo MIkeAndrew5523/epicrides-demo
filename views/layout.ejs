@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <% if (page === 'admin' || page === 'admin-login') { %>
+  <link rel="stylesheet" href="/css/admin.css">
+  <% } %>
+</head>
+<body class="page-<%= page %>">
+  <% if (page !== 'admin' && page !== 'admin-login') { %>
+  <!-- PUBLIC HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="/assets/logo_small.png" alt="Epic Rides">
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/book" class="nav-link nav-link--cta<%= page === 'book' ? ' active' : '' %>">Book Now!</a></li>
+          <li><a href="/schedule" class="nav-link<%= page === 'schedule' ? ' active' : '' %>">Whistler Bus Schedule</a></li>
+          <li><a href="/locations" class="nav-link<%= page === 'locations' ? ' active' : '' %>">Pick Up Locations</a></li>
+          <li class="nav-dropdown-wrap">
+            <a href="#" class="nav-link nav-dropdown-toggle<%= ['services','faq','contact'].includes(page) ? ' active' : '' %>">Services <span class="arrow-down">&#9662;</span></a>
+            <ul class="nav-dropdown">
+              <li><a href="/schedule">Bus to Whistler from Vancouver</a></li>
+              <li><a href="/book">Private Bus to Whistler</a></li>
+              <li><a href="/schedule">Bus to Whistler from UBC</a></li>
+              <li><a href="/schedule">Bring Bikes for Free!</a></li>
+              <li><a href="/book">Multi-Passes</a></li>
+              <li><a href="/faq">Bus to Whistler FAQ</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/faq">Cancellations and Changes</a></li>
+            </ul>
+          </li>
+          <li><a href="/admin/login" class="nav-link<%= page === 'login' ? ' active' : '' %>">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <% } %>
+
+  <% if (page === 'admin') { %>
+  <!-- ADMIN HEADER -->
+  <header class="admin-header">
+    <div class="container header-inner">
+      <a href="/admin" class="logo">
+        <img src="/assets/logo_small.png" alt="Epic Rides Admin">
+        <span class="admin-badge">Admin</span>
+      </a>
+      <nav class="admin-nav">
+        <a href="/admin" class="admin-nav-link">Dashboard</a>
+        <a href="/admin/bookings" class="admin-nav-link">Bookings</a>
+        <a href="/admin/schedules" class="admin-nav-link">Schedules</a>
+        <a href="/admin/content" class="admin-nav-link">Content</a>
+        <a href="/admin/locations" class="admin-nav-link">Locations</a>
+        <a href="/" class="admin-nav-link" target="_blank">View Site</a>
+        <a href="/admin/logout" class="admin-nav-link admin-nav-link--logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+  <% } %>
+
+  <% if (locals.flash) { %>
+  <div class="flash flash--<%= flash.type %>">
+    <div class="container"><%= flash.message %></div>
+  </div>
+  <% } %>
+
+  <main>
+    <%- include(body) %>
+  </main>
+
+  <% if (page !== 'admin' && page !== 'admin-login') { %>
+  <!-- PUBLIC FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <img src="/assets/logo-sm.png" alt="Epic Rides" class="footer-logo">
+        <p class="footer-tagline">Your Express Bus to Whistler</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/book">Book Now</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/schedule">Bus Schedule</a></li>
+          <li><a href="/locations">Pick Up Locations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>Phone: <%= siteContent.phone %></li>
+          <li>Email: <%= siteContent.email %></li>
+          <li><%= siteContent.address %></li>
+          <li><%= siteContent.hours %></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><img src="/assets/icon-fb.svg" alt="Facebook"></a>
+          <a href="#" aria-label="Twitter"><img src="/assets/icon-tw.svg" alt="Twitter"></a>
+          <a href="#" aria-label="Instagram"><img src="/assets/icon-insta.svg" alt="Instagram"></a>
+          <a href="#" aria-label="Yelp"><img src="/assets/icon-yelp.svg" alt="Yelp"></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <%= siteContent.copyright %></p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms and Conditions</a>
+          <a href="#">Cancellation &amp; Change Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <% } %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

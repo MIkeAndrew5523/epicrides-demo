@@ -1,0 +1,86 @@
+<section class="confirm-hero">
+  <div class="container">
+    <div class="confirm-card">
+      <div class="confirm-icon">&#10004;</div>
+      <h1 class="confirm-title">Booking Confirmed!</h1>
+      <p class="confirm-subtitle">Your trip is all set. We look forward to having you on board.</p>
+
+      <div class="confirm-ref">
+        <span class="confirm-ref-label">Booking Reference</span>
+        <span class="confirm-ref-number"><%= booking.booking_ref %></span>
+      </div>
+
+      <div class="confirm-details">
+        <div class="confirm-detail-card">
+          <h3>Trip Details</h3>
+          <div class="detail-rows">
+            <div class="detail-row">
+              <span class="detail-label">Route</span>
+              <span class="detail-value"><%= booking.departure_city %> &rarr; <%= booking.arrival_city %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Departure</span>
+              <span class="detail-value"><%= booking.departure_time %> &rarr; <%= booking.arrival_time %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Travel Date</span>
+              <span class="detail-value"><%= booking.travel_date %></span>
+            </div>
+            <% if (booking.trip_type === 'roundtrip' && booking.return_date) { %>
+            <div class="detail-row">
+              <span class="detail-label">Return Date</span>
+              <span class="detail-value"><%= booking.return_date %></span>
+            </div>
+            <% } %>
+            <div class="detail-row">
+              <span class="detail-label">Trip Type</span>
+              <span class="detail-value"><%= booking.trip_type === 'roundtrip' ? 'Round-Trip' : 'One-Way' %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Passengers</span>
+              <span class="detail-value"><%= booking.passengers %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Status</span>
+              <span class="detail-value confirm-status confirm-status--<%= booking.status %>"><%= booking.status.charAt(0).toUpperCase() + booking.status.slice(1) %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm-detail-card">
+          <h3>Price Summary</h3>
+          <div class="detail-rows">
+            <div class="detail-row detail-row--total">
+              <span class="detail-label">Total Paid</span>
+              <span class="detail-value">$<%= parseFloat(booking.total_price).toFixed(2) %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm-detail-card">
+          <h3>Customer Information</h3>
+          <div class="detail-rows">
+            <div class="detail-row">
+              <span class="detail-label">Name</span>
+              <span class="detail-value"><%= booking.customer_name %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Email</span>
+              <span class="detail-value"><%= booking.customer_email %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="confirm-email-notice">
+        <span class="confirm-email-icon">&#9993;</span>
+        A confirmation has been sent to <strong><%= booking.customer_email %></strong>
+      </div>
+
+      <div class="confirm-actions">
+        <a href="/book" class="btn btn-primary">Book Another Trip</a>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</section>

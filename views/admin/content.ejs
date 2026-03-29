@@ -1,0 +1,326 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Manage Content</h1>
+  </div>
+
+  <!-- ===== SITE CONTENT ===== -->
+  <div class="admin-section">
+    <h2 class="admin-section-title">Site Content</h2>
+    <div class="admin-card">
+      <form action="/admin/site-content" method="POST">
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="sc-hero_title">Hero Title</label>
+            <input type="text" id="sc-hero_title" name="hero_title" value="<%= siteContent.hero_title || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-hero_subtitle">Hero Subtitle</label>
+            <input type="text" id="sc-hero_subtitle" name="hero_subtitle" value="<%= siteContent.hero_subtitle || '' %>">
+          </div>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="sc-price_roundtrip">Price Round-Trip</label>
+            <input type="text" id="sc-price_roundtrip" name="price_roundtrip" value="<%= siteContent.price_roundtrip || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-price_oneway">Price One-Way</label>
+            <input type="text" id="sc-price_oneway" name="price_oneway" value="<%= siteContent.price_oneway || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-price_multipass">Price Multi-Pass</label>
+            <input type="text" id="sc-price_multipass" name="price_multipass" value="<%= siteContent.price_multipass || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-trip_time">Trip Time</label>
+            <input type="text" id="sc-trip_time" name="trip_time" value="<%= siteContent.trip_time || '' %>">
+          </div>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="sc-phone">Phone</label>
+            <input type="text" id="sc-phone" name="phone" value="<%= siteContent.phone || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-email">Email</label>
+            <input type="text" id="sc-email" name="email" value="<%= siteContent.email || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-address">Address</label>
+            <input type="text" id="sc-address" name="address" value="<%= siteContent.address || '' %>">
+          </div>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="sc-hours">Hours</label>
+            <input type="text" id="sc-hours" name="hours" value="<%= siteContent.hours || '' %>">
+          </div>
+          <div class="admin-form-group">
+            <label for="sc-copyright">Copyright</label>
+            <input type="text" id="sc-copyright" name="copyright" value="<%= siteContent.copyright || '' %>">
+          </div>
+        </div>
+        <div class="admin-form-group">
+          <label for="sc-about_text">About Text</label>
+          <textarea id="sc-about_text" name="about_text" rows="4"><%= siteContent.about_text || '' %></textarea>
+        </div>
+        <div class="admin-form-actions">
+          <button type="submit" class="btn-admin btn-admin-primary">Save Site Content</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <div class="admin-section">
+    <h2 class="admin-section-title">Testimonials</h2>
+
+    <!-- Add New -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2>Add New Testimonial</h2>
+      </div>
+      <form action="/admin/testimonials" method="POST">
+        <div class="admin-form-group">
+          <label for="new-test-quote">Quote</label>
+          <textarea id="new-test-quote" name="quote" required rows="3" placeholder="Customer testimonial text..."></textarea>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="new-test-author">Author</label>
+            <input type="text" id="new-test-author" name="author" required placeholder="e.g. John D.">
+          </div>
+          <div class="admin-form-group">
+            <label for="new-test-rating">Rating (1-5)</label>
+            <input type="number" id="new-test-rating" name="rating" min="1" max="5" value="5">
+          </div>
+          <div class="admin-form-group">
+            <label for="new-test-sort">Sort Order</label>
+            <input type="number" id="new-test-sort" name="sort_order" value="0">
+          </div>
+        </div>
+        <div class="admin-form-actions">
+          <button type="submit" class="btn-admin btn-admin-primary">Add Testimonial</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Existing Testimonials -->
+    <% if (testimonials.length === 0) { %>
+      <div class="admin-empty">No testimonials yet.</div>
+    <% } else { %>
+      <% testimonials.forEach(t => { %>
+        <div class="content-item">
+          <div class="content-item-header">
+            <div>
+              <div class="content-item-text">"<%= t.quote.substring(0, 120) %><%= t.quote.length > 120 ? '...' : '' %>"</div>
+              <div class="content-item-meta">
+                &mdash; <%= t.author %> | Rating: <%= t.rating %>/5 | Order: <%= t.sort_order %>
+                <span class="status-badge status-badge--<%= t.active ? 'active' : 'inactive' %>" style="margin-left:0.5rem;"><%= t.active ? 'Active' : 'Inactive' %></span>
+              </div>
+            </div>
+            <div class="content-item-actions">
+              <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('test-<%= t.id %>')">Edit</button>
+              <form action="/admin/testimonials/<%= t.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this testimonial?')">
+                <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+          <div class="edit-form" id="test-<%= t.id %>">
+            <form action="/admin/testimonials/<%= t.id %>/update" method="POST">
+              <div class="admin-form-group">
+                <label>Quote</label>
+                <textarea name="quote" required rows="3"><%= t.quote %></textarea>
+              </div>
+              <div class="admin-form-row">
+                <div class="admin-form-group">
+                  <label>Author</label>
+                  <input type="text" name="author" value="<%= t.author %>" required>
+                </div>
+                <div class="admin-form-group">
+                  <label>Rating</label>
+                  <input type="number" name="rating" value="<%= t.rating %>" min="1" max="5">
+                </div>
+                <div class="admin-form-group">
+                  <label>&nbsp;</label>
+                  <div class="admin-checkbox-group">
+                    <input type="checkbox" name="active" id="test-active-<%= t.id %>" value="1" <%= t.active ? 'checked' : '' %>>
+                    <label for="test-active-<%= t.id %>">Active</label>
+                  </div>
+                </div>
+              </div>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn-admin btn-admin-primary btn-admin-sm">Save</button>
+                <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('test-<%= t.id %>')">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <!-- ===== DID YOU KNOW FACTS ===== -->
+  <div class="admin-section">
+    <h2 class="admin-section-title">Did You Know Facts</h2>
+
+    <!-- Add New -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2>Add New Fact</h2>
+      </div>
+      <form action="/admin/facts" method="POST">
+        <div class="admin-form-group">
+          <label for="new-fact-text">Fact Text</label>
+          <textarea id="new-fact-text" name="fact_text" required rows="2" placeholder="Did you know..."></textarea>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="new-fact-sort">Sort Order</label>
+            <input type="number" id="new-fact-sort" name="sort_order" value="0">
+          </div>
+        </div>
+        <div class="admin-form-actions">
+          <button type="submit" class="btn-admin btn-admin-primary">Add Fact</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Existing Facts -->
+    <% if (facts.length === 0) { %>
+      <div class="admin-empty">No facts yet.</div>
+    <% } else { %>
+      <% facts.forEach(f => { %>
+        <div class="content-item">
+          <div class="content-item-header">
+            <div>
+              <div class="content-item-text"><%= f.fact_text %></div>
+              <div class="content-item-meta">
+                Order: <%= f.sort_order %>
+                <span class="status-badge status-badge--<%= f.active ? 'active' : 'inactive' %>" style="margin-left:0.5rem;"><%= f.active ? 'Active' : 'Inactive' %></span>
+              </div>
+            </div>
+            <div class="content-item-actions">
+              <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('fact-<%= f.id %>')">Edit</button>
+              <form action="/admin/facts/<%= f.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this fact?')">
+                <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+          <div class="edit-form" id="fact-<%= f.id %>">
+            <form action="/admin/facts/<%= f.id %>/update" method="POST">
+              <div class="admin-form-group">
+                <label>Fact Text</label>
+                <textarea name="fact_text" required rows="2"><%= f.fact_text %></textarea>
+              </div>
+              <div class="admin-form-row">
+                <div class="admin-form-group">
+                  <label>&nbsp;</label>
+                  <div class="admin-checkbox-group">
+                    <input type="checkbox" name="active" id="fact-active-<%= f.id %>" value="1" <%= f.active ? 'checked' : '' %>>
+                    <label for="fact-active-<%= f.id %>">Active</label>
+                  </div>
+                </div>
+              </div>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn-admin btn-admin-primary btn-admin-sm">Save</button>
+                <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('fact-<%= f.id %>')">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <!-- ===== FAQ ===== -->
+  <div class="admin-section">
+    <h2 class="admin-section-title">FAQ</h2>
+
+    <!-- Add New -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2>Add New FAQ</h2>
+      </div>
+      <form action="/admin/faqs" method="POST">
+        <div class="admin-form-group">
+          <label for="new-faq-q">Question</label>
+          <input type="text" id="new-faq-q" name="question" required placeholder="How do I...?">
+        </div>
+        <div class="admin-form-group">
+          <label for="new-faq-a">Answer</label>
+          <textarea id="new-faq-a" name="answer" required rows="3" placeholder="The answer is..."></textarea>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="new-faq-sort">Sort Order</label>
+            <input type="number" id="new-faq-sort" name="sort_order" value="0">
+          </div>
+        </div>
+        <div class="admin-form-actions">
+          <button type="submit" class="btn-admin btn-admin-primary">Add FAQ</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Existing FAQs -->
+    <% if (faqs.length === 0) { %>
+      <div class="admin-empty">No FAQs yet.</div>
+    <% } else { %>
+      <% faqs.forEach(faq => { %>
+        <div class="content-item">
+          <div class="content-item-header">
+            <div>
+              <div class="content-item-text"><strong>Q:</strong> <%= faq.question %></div>
+              <div class="content-item-text text-muted" style="margin-top:0.25rem;"><strong>A:</strong> <%= faq.answer.substring(0, 120) %><%= faq.answer.length > 120 ? '...' : '' %></div>
+              <div class="content-item-meta">
+                Order: <%= faq.sort_order %>
+                <span class="status-badge status-badge--<%= faq.active ? 'active' : 'inactive' %>" style="margin-left:0.5rem;"><%= faq.active ? 'Active' : 'Inactive' %></span>
+              </div>
+            </div>
+            <div class="content-item-actions">
+              <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('faq-<%= faq.id %>')">Edit</button>
+              <form action="/admin/faqs/<%= faq.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this FAQ?')">
+                <button type="submit" class="btn-admin btn-admin-danger btn-admin-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+          <div class="edit-form" id="faq-<%= faq.id %>">
+            <form action="/admin/faqs/<%= faq.id %>/update" method="POST">
+              <div class="admin-form-group">
+                <label>Question</label>
+                <input type="text" name="question" value="<%= faq.question %>" required>
+              </div>
+              <div class="admin-form-group">
+                <label>Answer</label>
+                <textarea name="answer" required rows="3"><%= faq.answer %></textarea>
+              </div>
+              <div class="admin-form-row">
+                <div class="admin-form-group">
+                  <label>&nbsp;</label>
+                  <div class="admin-checkbox-group">
+                    <input type="checkbox" name="active" id="faq-active-<%= faq.id %>" value="1" <%= faq.active ? 'checked' : '' %>>
+                    <label for="faq-active-<%= faq.id %>">Active</label>
+                  </div>
+                </div>
+              </div>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn-admin btn-admin-primary btn-admin-sm">Save</button>
+                <button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" onclick="toggleEdit('faq-<%= faq.id %>')">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  function toggleEdit(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('open');
+    }
+  }
+</script>

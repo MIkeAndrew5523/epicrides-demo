@@ -1,0 +1,74 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you</p>
+  </div>
+</div>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <h3>Get In Touch</h3>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#128222;</span>
+          <div>
+            <strong>Phone</strong>
+            <span><%= siteContent.phone %></span>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#9993;</span>
+          <div>
+            <strong>Email</strong>
+            <span><%= siteContent.email %></span>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#128205;</span>
+          <div>
+            <strong>Address</strong>
+            <span><%= siteContent.address %></span>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#128336;</span>
+          <div>
+            <strong>Business Hours</strong>
+            <span><%= siteContent.hours %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form" id="contactForm">
+        <h3>Send Us a Message</h3>
+        <form id="contactFormEl">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Your Name</label>
+              <input type="text" id="contactName" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Your Email</label>
+              <input type="email" id="contactEmail" name="email" required placeholder="john@example.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject</label>
+            <input type="text" id="contactSubject" name="subject" required placeholder="How can we help?">
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" required placeholder="Tell us more..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent">Send Message</button>
+        </form>
+        <div id="contactSuccess" style="display:none;" class="mt-2">
+          <div style="background:#d4edda;color:#155724;padding:20px;border-radius:8px;text-align:center;">
+            <strong>Thank you!</strong> Your message has been sent. We'll get back to you within 24 hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

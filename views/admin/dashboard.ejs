@@ -1,0 +1,37 @@
+<div class="admin-container">
+  <div class="admin-page-header">
+    <h1>Dashboard</h1>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number"><%= stats.totalBookings %></div>
+      <div class="stat-label">Total Bookings</div>
+    </div>
+    <div class="stat-card stat-card--warning">
+      <div class="stat-number"><%= stats.todayBookings %></div>
+      <div class="stat-label">Today's Bookings</div>
+    </div>
+    <div class="stat-card stat-card--success">
+      <div class="stat-number"><%= stats.confirmedBookings %></div>
+      <div class="stat-label">Confirmed</div>
+    </div>
+    <div class="stat-card stat-card--danger">
+      <div class="stat-number"><%= stats.cancelledBookings %></div>
+      <div class="stat-label">Cancelled</div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h2>Quick Links</h2>
+    </div>
+    <div class="quick-links">
+      <a href="/admin/bookings" class="quick-link">Manage Bookings</a>
+      <a href="/admin/schedules" class="quick-link">Manage Schedules</a>
+      <a href="/admin/content" class="quick-link">Manage Content</a>
+      <a href="/admin/locations" class="quick-link">Manage Locations</a>
+      <a href="/" class="quick-link" target="_blank">View Public Site</a>
+    </div>
+  </div>
+</div>

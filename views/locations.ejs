@@ -1,0 +1,26 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Pick Up Locations</h1>
+    <p>Convenient pickup and drop-off points in Vancouver and Whistler</p>
+  </div>
+</div>
+
+<section class="locations-section">
+  <div class="container">
+    <div class="locations-grid">
+      <% locations.forEach(function(loc) { %>
+      <div class="location-card">
+        <span class="location-city"><%= loc.city %></span>
+        <h3><%= loc.name %></h3>
+        <p class="location-address">&#128205; <%= loc.address %></p>
+        <% if (loc.description) { %>
+        <p class="location-desc"><%= loc.description %></p>
+        <% } %>
+      </div>
+      <% }); %>
+    </div>
+    <div class="text-center mt-3">
+      <a href="/book" class="btn btn-accent btn-lg">Book Your Trip</a>
+    </div>
+  </div>
+</section>

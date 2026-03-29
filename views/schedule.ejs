@@ -1,0 +1,68 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Whistler Bus Schedule</h1>
+    <p>Daily departures between Vancouver and Whistler</p>
+  </div>
+</div>
+
+<section class="schedule-section">
+  <div class="container">
+    <!-- Vancouver to Whistler -->
+    <div class="schedule-direction">
+      <h2>&#128652; Vancouver &rarr; Whistler</h2>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Days</th>
+            <th>One-Way</th>
+            <th>Round-Trip</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% schedules.filter(function(s) { return s.departure_city === 'Vancouver'; }).forEach(function(s) { %>
+          <tr>
+            <td><strong><%= s.departure_time %></strong></td>
+            <td><%= s.arrival_time %></td>
+            <td><%= s.days_of_week.replace(/,/g, ', ') %></td>
+            <td class="price">$<%= s.price_oneway.toFixed(2) %></td>
+            <td class="price">$<%= s.price_roundtrip.toFixed(2) %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Whistler to Vancouver -->
+    <div class="schedule-direction">
+      <h2>&#128652; Whistler &rarr; Vancouver</h2>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Days</th>
+            <th>One-Way</th>
+            <th>Round-Trip</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% schedules.filter(function(s) { return s.departure_city === 'Whistler'; }).forEach(function(s) { %>
+          <tr>
+            <td><strong><%= s.departure_time %></strong></td>
+            <td><%= s.arrival_time %></td>
+            <td><%= s.days_of_week.replace(/,/g, ', ') %></td>
+            <td class="price">$<%= s.price_oneway.toFixed(2) %></td>
+            <td class="price">$<%= s.price_roundtrip.toFixed(2) %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center mt-3">
+      <a href="/book" class="btn btn-accent btn-lg">Book Your Trip Now</a>
+    </div>
+  </div>
+</section>

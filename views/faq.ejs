@@ -1,0 +1,26 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about riding with Epic Rides</p>
+  </div>
+</div>
+
+<section class="faq-section">
+  <% faqs.forEach(function(faq) { %>
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">
+      <span><%= faq.question %></span>
+      <span class="faq-toggle">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p><%= faq.answer %></p>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+
+  <div class="text-center mt-3">
+    <p>Still have questions? <a href="/contact">Contact us</a> and we'll be happy to help.</p>
+  </div>
+</section>
