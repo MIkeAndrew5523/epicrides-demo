@@ -9,9 +9,35 @@
       </div>
       <div class="admin-form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required autocomplete="current-password">
+        <div class="password-input-wrap">
+          <input type="password" id="password" name="password" required autocomplete="current-password">
+          <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+            <span class="eye-icon" id="eyeIcon">&#128065;</span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="btn-admin btn-admin-primary">Log In</button>
     </form>
   </div>
 </div>
+
+<script>
+(function() {
+  var toggle = document.getElementById('togglePassword');
+  var password = document.getElementById('password');
+  var eyeIcon = document.getElementById('eyeIcon');
+  if (toggle && password) {
+    toggle.addEventListener('click', function() {
+      if (password.type === 'password') {
+        password.type = 'text';
+        eyeIcon.innerHTML = '&#128064;';
+        toggle.setAttribute('aria-label', 'Hide password');
+      } else {
+        password.type = 'password';
+        eyeIcon.innerHTML = '&#128065;';
+        toggle.setAttribute('aria-label', 'Show password');
+      }
+    });
+  }
+})();
+</script>
